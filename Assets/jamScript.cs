@@ -82,7 +82,7 @@ public class jamScript : MonoBehaviour {
     {
         while (!moduleSolved)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.75f);
             currentNumber--;
             if (currentNumber < 0)
                 currentNumber = 99;

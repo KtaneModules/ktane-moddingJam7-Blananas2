@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1">
@@ -8,6 +8,28 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="js/ktane-utils.js"></script>
+    <style>
+        table {
+            margin: 1em auto;
+            border: none;
+        }
+
+        td { 
+            vertical-align: top; 
+            max-width: 334px;
+        }
+        td h3, td p { margin-left: 0.5em; }
+
+        img.object {
+            float: right;
+            margin-top: 1em;
+            margin-right: 0.5em;
+        }
+        .dark img.object { filter: invert(88%); }
+
+        .page-footer::before { content: 'Page '; }
+        .page-footer::after { content: ' of 2'; }
+    </style>
 </head>
 <body>
     <div class="section">
@@ -19,134 +41,86 @@
             <div class="page-content">
                 <img src="img/Component/Module Name.svg" class="diagram">
                 <h2>On the Subject of Module Name</h2>
-                <p class="flavour-text">Your flavor text should go here.</p>
+                <p class="flavour-text">We are thinking of a number.</p>
 
-                <p>Here are templates for commonly used manual features. Make sure to always use closing tags (the ones with a <code>/</code> in them).</p>
-
-                <h3>Bullet Points (Unordered Lists)</h3>
-                <ul>
-                    <li>Bullet points should use the <code>&lt;ul&gt;&lt;/ul&gt;</code> and <code>&lt;li&gt;&lt;/li&gt;</code> tags.</li>
-                    <li>
-                        You can even have nested bullet points:
-                        <ul>
-                            <li>Indented</li>
-                            <li>Bullet Points</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Or numbered lists:
-                        <ol>
-                            <li>Indented</li>
-                            <li>Bullet Points</li>
-                        </ol>
-                    </li>
-                </ul>
-
-                <h3>Numbered Lists (Ordered Lists)</h3>
-                <ol>
-                    <li>Numbered lists should use the <code>&lt;ol&gt;&lt;/ol&gt;</code> and <code>&lt;li&gt;&lt;/li&gt;</code> tags.</li>
-                    <li>Nested lists work just like unordered lists (see above).</li>
-                </ol>
-
-                <h3>Text</h3>
-                <p>Use paragraph tags (<code>&lt;p&gt;&lt;/p&gt;</code>) for text blocks. In addition, for text formatting, use:</p>
-                <ul>
-                    <li>
-                        <strong>Bold</strong>: <code>&lt;strong&gt;&lt;/strong&gt;</code> (HTML) or <code>font-weight: bold;</code> (CSS).
-                        <ul><li>Bold in table headers should be achieved through the use of the <code>&lt;th&gt;&lt;/th&gt;</code> tag.</li></ul>
-                    </li>
-                    <li><em>Underline</em>: <code>&lt;em&gt;&lt;/em&gt;</code> (HTML) or <code>text-decoration: underline;</code> (CSS).</li>
-                    <li>Line<br />Break: <code>&lt;br /&gt;</code> (HTML)</li>
-                </ul>
-                <p>For the most part, HTML versions of bolding and underlining is recommended. Note that italics are not used in vanilla manuals besides flavor text and references to appendices, and therefore is not included above. Also, here are some sample headings:</p>
-                <h3>Example Big Heading</h3>
-                <h4>Example Small Heading</h4>
+                <p>This module’s largest feature is a two-digit seven-segment display timer which counts down cycling through all two-digit numbers. Use the objects present in the four spaces between timer segments to determine a number that, when displayed as you press the button, solves the module. Each object corresponds to a single constraint. Valid numbers abide by all four constraints. Pressing the button on an invalid number results in a strike.</p>
+                
+                <table>
+                    <tr>
+                        <td>
+                            <img class="object" src="img/Module Name/matrix.svg">
+                            <h3>Matrix</h3>
+                            <p>The matrix’s constraint only applies to the digit the matrix is inside of. Count the number of squares that are lit at any single moment. If the matrix is present on the top half of the digit, this number is an upper bound. If the matrix is present on the bottom half, this number is a lower bound.</p>
+                        </td>
+                        <td>
+                            <img class="object" src="img/Module Name/pcb.svg">
+                            <h3>PCB</h3>
+                            <p>The PCB’s constraint only applies to the segments next to each end of the trace or traces present on the board. If the chip is square relative to the board, the segments are all lit or all unlit. If the chip is at 45° relative to the board, exactly one segment is lit.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img class="object" src="img/Module Name/sticker.svg">
+                            <h3>Sticker</h3>
+                            <p>At least one of the four object spaces are surrounded by lit segments which match that of the letter present on the sticker converted using a <a href="Pigpen Rotations.html">Pigpen cipher</a>. If this letter is later in the alphabet than “I”, the surrounding segments are unlit instead.</p>
+                        </td>
+                        <td>
+                            <img class="object" src="img/Module Name/domino.svg">
+                            <h3>Domino</h3>
+                            <p>Count the number of pips on each half of the domino. The absolute difference between the two digits ranges between these two numbers. If the pips are white, this range in inclusive. If the pips are black, this range is exclusive.</p>
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <div class="page-footer relative-footer">Page 1 of 3</div>
+            <div class="page-footer relative-footer">1</div>
         </div>
+
         <div class="page page-bg-02">
             <div class="page-header">
                 <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
                 <span class="page-header-section-title">Module Name</span>
             </div>
             <div class="page-content">
-                <h3>Example Tables</h3>
                 <table>
                     <tr>
-                        <th>Part of table</th>
-                        <th>How to make</th>
-                    </tr>
-                    <tr>
-                        <th>Rows and Columns</th>
                         <td>
-                            Use <code>&lt;tr&gt;&lt;/tr&gt;</code> for rows.
-                            Use <code>&lt;th&gt;&lt;/th&gt;</code> or <code>&lt;td&gt;&lt;/td&gt;</code> for columns within rows (see below).
+                            <img class="object" src="img/Module Name/!part.svg">
+                            <h3>Screws</h3>
+                            <p>The displayed number must be divisible by the number of screws that are screwed into this space. If they are Phillips screws, the display is read normally. If they are Torx screws, read the display with the tens digit on the right and the ones digit on the left.</p>
+                        </td>
+                        <td>
+                            <img class="object" src="img/Module Name/!part.svg">
+                            <h3>Gear</h3>
+                            <p>Look at how the gear is spinning. If the gear is spinning clockwise, the digit on the right is the greater of the two. If the gear is spinning counter-clockwise, the digit on the left is greater. If the gear is stationary, the two digits match.</p>
                         </td>
                     </tr>
                     <tr>
-                        <th>Headings (left column and top row, in most cases)</th>
-                        <td>Use <code>&lt;th&gt;&lt;/th&gt;</code></td>
+                        <td>
+                            <img class="object" src="img/Module Name/!part.svg">
+                            <h3>Thermo</h3>
+                            <p>Label the segments of a seven-segment display A through G in reading order. The number of lit segments labelled with the letter shown next to the thermo equals that of the temperature reading.</p>
+                        </td>
+                        <td>
+                            <img class="object" src="img/Module Name/!part.svg">
+                            <h3>part</h3>
+                            <p>desc</p>
+                        </td>
                     </tr>
                     <tr>
-                        <th>Cells</th>
-                        <td>Use <code>&lt;td&gt;&lt;/td&gt;</code></td>
-                    </tr>
-                    <tr>
-                        <th rowspan="2">Merged Cells</th>
-                        <td>Use <code>rowspan="_"</code> for merging cells vertically.</td>
-                    </tr>
-                    <tr>
-                        <td>Use <code>colspan="_"</code> for merging cells horizontally.</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Note that merged cells created in other rows are skipped in affected rows (see HTML for above row).</td>
+                        <td>
+                            <img class="object" src="img/Module Name/!part.svg">
+                            <h3>part</h3>
+                            <p>desc</p>
+                        </td>
+                        <td>
+                            <img class="object" src="img/Module Name/stamp markings.svg">
+                            <h3>Stamp Markings</h3>
+                            <p>If a marking says “CLASSIFIED”, the number of lit segments is prime. If a marking says “DECLASSIFIED”, the displayed number is prime. Multiple markings may be present. If only one marking is present on the module, the other quantity is not prime.</p>
+                        </td>
                     </tr>
                 </table>
-                <p>If the table contents are not wide enough, tables are centered by default due to the <code>table</code> rule of the first <code>&lt;style&gt;</code> block (see above code).</p>
-                <table class="center">
-                    <tr>
-                        <th>Cell 1</th>
-                        <td>Cell 2</td>
-                    </tr>
-                    <tr>
-                        <th>Cell 3</th>
-                        <td>Cell 4</td>
-                    </tr>
-                </table>
-
-                <h3>Images</h3>
-                <p>Use the <code>&lt;img src="_" /&gt;</code> tag for images. Make sure to put your images into the <code class="notcode">/img/[Module Name]/</code> folder. Adjust the width with CSS, using <code>width: _%;</code> (recommended) or <code>width: _px;</code>. Example:</p>
-                <img style='width: 100%' src="img/Module Name/Example Image.png" />
-
-                <h3>Making the PDF</h3>
-                <p>To make a PDF version of your manual, open the HTML file in Google Chrome and open the "Print" dialog (Usually <kbd>CTRL</kbd>+<kbd>P</kbd>) and choose "Save as PDF" as the destination.</p>
             </div>
-            <div class="page-footer relative-footer">Page 2 of 3</div>
-        </div>
-        <div class="page page-bg-03">
-            <div class="page-header">
-                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
-                <span class="page-header-section-title">Appendix Name</span>
-            </div>
-            <div class="page-content">
-                <h2>Appendix M: Additional Notes</h2>
-                <p>Here other things to keep in mind when making a manual page:</p>
-                <ul>
-                    <li><strong>There are comments <code>/* ... */</code> in the CSS code in the <code>&lt;style&gt;</code> blocks containing instructions. Follow those instructions before finishing your manual.</strong></li>
-                    <li>Normal and Needy module manual pages are formatted similarly. Widget manual pages are appendices and are formatted as such.</li>
-                    <li>Each manual or appendix page should have a <code>&lt;div class="page-footer...</code> at the bottom of the page, updated accordingly.</li>
-                    <li>Don't be afraid to ask for help if needed!</li>
-                    <li>
-                        A few things to reiterate:
-                        <ul>
-                            <li>Make sure to never forget closing tags (the ones with a <code>/</code> in them).</li>
-                            <li>For the most part, HTML versions of bolding and underlining is recommended.</li>
-                            <li>Italics are not used in vanilla manuals besides flavor text and references to appendices, and therefore is not included above. </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="page-footer relative-footer">Page 3 of 3</div>
+            <div class="page-footer relative-footer">2</div>
         </div>
     </div>
 </body>
