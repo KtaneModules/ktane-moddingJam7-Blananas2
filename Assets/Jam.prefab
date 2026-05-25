@@ -1572,6 +1572,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bomb: {fileID: 114392861769032698}
   Audio: {fileID: 114113916161553536}
+  leftDisplaySegments:
+  - {fileID: 23712184556113960}
+  - {fileID: 23642262671398672}
+  - {fileID: 23669660170925832}
+  - {fileID: 23448561364652984}
+  - {fileID: 23581615457651202}
+  - {fileID: 23386119443198984}
+  - {fileID: 23242712679103842}
+  rightDisplaySegments:
+  - {fileID: 23861957727679430}
+  - {fileID: 23432607875563160}
+  - {fileID: 23992623629186476}
+  - {fileID: 23599587806617786}
+  - {fileID: 23686337381262734}
+  - {fileID: 23429525315757006}
+  - {fileID: 23679916018921268}
+  segmentStateMaterials:
+  - {fileID: 2100000, guid: 4fe6e56d6d8607f4b98e57389613465e, type: 2}
+  - {fileID: 2100000, guid: 4678352d82b269f469c17d1869de71fd, type: 2}
 --- !u!114 &114505745482473818
 MonoBehaviour:
   m_ObjectHideFlags: 1
