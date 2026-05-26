@@ -25,7 +25,11 @@
             margin-top: 1em;
             margin-right: 0.5em;
         }
-        .dark img.object { filter: invert(88%); }
+        .dark img.object, .dark img.screw { filter: invert(88%); }
+        img.screw { 
+            margin-bottom: 4px;
+            margin-right: 1px;
+        }
 
         .page-footer::before { content: 'Page '; }
         .page-footer::after { content: ' of 2'; }
@@ -84,19 +88,19 @@
                 <table>
                     <tr>
                         <td>
-                            <img class="object" src="img/Module Name/!part.svg">
+                            <img class="object" src="img/Module Name/screws.svg">
                             <h3>Screws</h3>
-                            <p>The displayed number must be divisible by the number of screws that are screwed into this space. If they are Phillips screws, the display is read normally. If they are Torx screws, read the display with the tens digit on the right and the ones digit on the left.</p>
+                            <p>The displayed number must be divisible by the number of screws that are screwed into this space. If there are Phillips screws (<img class="screw" src="img/Module Name/phillips screw.svg">), the display is read normally. If there are Torx screws (<img class="screw" src="img/Module Name/torx screw.svg">), read the display with the tens digit on the right and the ones digit on the left.</p>
                         </td>
                         <td>
-                            <img class="object" src="img/Module Name/!part.svg">
+                            <img class="object" src="img/Module Name/gear.svg">
                             <h3>Gear</h3>
                             <p>Look at how the gear is spinning. If the gear is spinning clockwise, the digit on the right is the greater of the two. If the gear is spinning counter-clockwise, the digit on the left is greater. If the gear is stationary, the two digits match.</p>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <img class="object" src="img/Module Name/!part.svg">
+                            <img class="object" src="img/Module Name/thermo.svg">
                             <h3>Thermo</h3>
                             <p>Label the segments of a seven-segment display A through G in reading order. The number of lit segments labelled with the letter shown next to the thermo equals that of the temperature reading.</p>
                         </td>
