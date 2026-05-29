@@ -52,26 +52,26 @@
                 <table>
                     <tr>
                         <td>
-                            <img class="object" src="img/Module Name/matrix.svg">
-                            <h3>Matrix</h3>
-                            <p>The matrix’s constraint only applies to the digit the matrix is inside of. Count the number of squares that are lit at any single moment. If the matrix is present on the top half of the digit, this number is an upper bound for what the digit can be. If the matrix is present on the bottom half, this number is a lower bound.</p>
-                        </td>
-                        <td>
-                            <img class="object" src="img/Module Name/pcb.svg">
-                            <h3>PCB</h3>
-                            <p>The PCB’s constraint only applies to the segments next to each end of the trace or traces present on the board. If the chip is square relative to the board, the segments are all lit or all unlit. If the chip is at 45° relative to the board, exactly one segment is lit.</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img class="object" src="img/Module Name/sticker.svg">
-                            <h3>Sticker</h3>
-                            <p>At least one of the four object spaces are surrounded by lit segments which match that of the letter present on the sticker converted using a <a href="Pigpen Rotations.html">Pigpen cipher</a>. If this letter is later in the alphabet than “I”, the surrounding segments are unlit instead.</p>
+                            <img class="object" src="img/Module Name/compass.svg">
+                            <h3>Compass</h3>
+                            <p>The compass’ constraint only applies to the segments the compass’ needle is pointing to. If the needle is red, all the relevant segments are lit. If the needle is black, all the relevant segments are unlit.</p>
                         </td>
                         <td>
                             <img class="object" src="img/Module Name/domino.svg">
                             <h3>Domino</h3>
                             <p>Count the number of pips on each half of the domino. The absolute difference between the two digits ranges between these two numbers. If the pips are white, this range in inclusive. If the pips are black, this range is exclusive.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img class="object" src="img/Module Name/gear.svg">
+                            <h3>Gear</h3>
+                            <p>Look at how the gear is spinning. If the gear is spinning clockwise, the digit on the right is the greater of the two. If the gear is spinning counter-clockwise, the digit on the left is greater. If the gear is stationary, the two digits match.</p>
+                        </td>
+                        <td>
+                            <img class="object" src="img/Module Name/matrix.svg">
+                            <h3>Matrix</h3>
+                            <p>The matrix’s constraint only applies to the digit the matrix is inside of. Count the number of squares that are lit at any single moment. If the matrix is present on the top half of the digit, this number is an upper bound for what the digit can be. If the matrix is present on the bottom half, this number is a lower bound.</p>
                         </td>
                     </tr>
                 </table>
@@ -88,14 +88,26 @@
                 <table>
                     <tr>
                         <td>
+                            <img class="object" src="img/Module Name/pcb.svg">
+                            <h3>PCB</h3>
+                            <p>The PCB’s constraint only applies to the segments next to each end of the trace or traces present on the board. If the chip is square relative to the board, the segments are all lit or all unlit. If the chip is at 45° relative to the board, exactly one segment is lit.</p>
+                        </td>
+                        <td>
                             <img class="object" src="img/Module Name/screws.svg">
                             <h3>Screws</h3>
                             <p>The displayed number must be divisible by the number of screws that are screwed into this space. If there are Phillips screws (<img class="screw" src="img/Module Name/phillips screw.svg">), the display is read normally. If there are Torx screws (<img class="screw" src="img/Module Name/torx screw.svg">), read the display with the tens digit on the right and the ones digit on the left.</p>
                         </td>
+                    </tr>
+                    <tr>
                         <td>
-                            <img class="object" src="img/Module Name/gear.svg">
-                            <h3>Gear</h3>
-                            <p>Look at how the gear is spinning. If the gear is spinning clockwise, the digit on the right is the greater of the two. If the gear is spinning counter-clockwise, the digit on the left is greater. If the gear is stationary, the two digits match.</p>
+                            <img class="object" src="img/Module Name/stamp markings.svg">
+                            <h3>Stamp Markings</h3>
+                            <p>If a marking says “CLASSIFIED”, the number of lit segments is prime. If a marking says “DECLASSIFIED”, the displayed number is prime. Multiple markings may be present. If only one marking is present on the module, the other quantity is not prime.</p>
+                        </td>
+                        <td>
+                            <img class="object" src="img/Module Name/sticker.svg">
+                            <h3>Sticker</h3>
+                            <p>At least one of the four object spaces are surrounded by lit segments which match that of the letter present on the sticker converted using a <a href="Pigpen Rotations.html">Pigpen cipher</a>. If this letter is later in the alphabet than “I”, the surrounding segments are unlit instead.</p>
                         </td>
                     </tr>
                     <tr>
@@ -105,21 +117,9 @@
                             <p>Label the segments of a seven-segment display A through G in reading order. The number of lit segments labelled with the letter shown next to the thermo equals that of the temperature reading.</p>
                         </td>
                         <td>
-                            <img class="object" src="img/Module Name/compass.svg">
-                            <h3>Compass</h3>
-                            <p>The compass’ constraint only applies to the segments the compass’ needle is pointing to. If the needle is red, all the relevant segments are lit. If the needle is black, all the relevant segments are unlit.</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             <img class="object" src="img/Module Name/!part.svg">
                             <h3>???</h3>
                             <p>??? ???</p>
-                        </td>
-                        <td>
-                            <img class="object" src="img/Module Name/stamp markings.svg">
-                            <h3>Stamp Markings</h3>
-                            <p>If a marking says “CLASSIFIED”, the number of lit segments is prime. If a marking says “DECLASSIFIED”, the displayed number is prime. Multiple markings may be present. If only one marking is present on the module, the other quantity is not prime.</p>
                         </td>
                     </tr>
                 </table>
