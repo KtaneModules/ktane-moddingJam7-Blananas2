@@ -13,6 +13,7 @@ public class jamScript : MonoBehaviour {
     public MeshRenderer[] leftDisplaySegments;
     public MeshRenderer[] rightDisplaySegments;
     public Material[] segmentStateMaterials;
+    public GameObject[] coverObjects;
 
     public static bool[][] digitSegmentStates =
     {
@@ -87,6 +88,28 @@ public class jamScript : MonoBehaviour {
             if (currentNumber < 0)
                 currentNumber = 99;
             SetDisplayToNumber(currentNumber);
+
+            //temporary
+            if (currentNumber < 96 && currentNumber > 91)
+                StartCoroutine(Uncover(95 - currentNumber));
         }
+    }
+
+    IEnumerator Uncover(int coverIx)
+    {
+        var coverObj = coverObjects[coverIx];
+        var startRotation = Quaternion.Euler(0f, 0f, 0f);
+        var endRotation = Quaternion.Euler(-180f, 0f, 0f);
+
+        float elapsed = 0f;
+        float duration = 0.25f;
+
+        while (elapsed < duration)
+        {
+            coverObj.transform.localRotation = Quaternion.Slerp(startRotation, endRotation, elapsed / duration);
+            yield return null;
+            elapsed += Time.deltaTime;
+        }
+        coverObj.SetActive(false);
     }
 }
