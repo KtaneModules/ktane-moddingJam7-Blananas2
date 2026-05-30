@@ -14,7 +14,7 @@ public class jamScript : MonoBehaviour {
     public MeshRenderer[] rightDisplaySegments;
     public Material[] segmentStateMaterials;
 
-    bool[][] digitSegmentStates =
+    public static bool[][] digitSegmentStates =
     {
         new bool[] { true, true, true, false, true, true, true },     // 0
         new bool[] { false, false, true, false, false, true, false }, // 1
