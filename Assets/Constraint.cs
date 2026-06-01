@@ -38,7 +38,7 @@ public class Constraint
 {
     ConstraintType constraintType;
     ConstraintPosition constraintPosition;
-    int[] constraintData;
+    public int[] constraintData;
 
     // Randomly generate a constraint when a new constraint object is created
     public Constraint(ConstraintPosition position)

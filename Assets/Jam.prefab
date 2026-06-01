@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1041227768162802
 GameObject:
   m_ObjectHideFlags: 1
@@ -5621,6 +5621,97 @@ MonoBehaviour:
   - {fileID: 1378016039774392}
   - {fileID: 1356684737708294}
   - {fileID: 1783209919659500}
+  objectWholes:
+  - {fileID: 1960876411280540}
+  - {fileID: 1955949052520000}
+  - {fileID: 1308869714087164}
+  - {fileID: 1435976749976770}
+  - {fileID: 1694061821758532}
+  - {fileID: 1923367070482190}
+  - {fileID: 1380526649878910}
+  - {fileID: 1875868583385306}
+  - {fileID: 1179146085115844}
+  dominoPipSlots:
+  - {fileID: 212650427171302394}
+  - {fileID: 212611086023177558}
+  - {fileID: 212374588945162376}
+  dominoPips:
+  - {fileID: 0}
+  - {fileID: 21300002, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  - {fileID: 21300004, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  - {fileID: 21300006, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  - {fileID: 21300008, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  - {fileID: 21300010, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  - {fileID: 21300012, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  - {fileID: 21300014, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  - {fileID: 21300016, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  - {fileID: 21300018, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  matrixSquares:
+  - {fileID: 23785977068244228}
+  - {fileID: 23789785920997974}
+  - {fileID: 23076247669019330}
+  - {fileID: 23091986673928926}
+  - {fileID: 23109455745782760}
+  - {fileID: 23771166960957484}
+  - {fileID: 23098111205999080}
+  - {fileID: 23844108253846084}
+  - {fileID: 23320110949216578}
+  matrixStateMats:
+  - {fileID: 2100000, guid: de8aa9d9e784d84418864695a0544022, type: 2}
+  - {fileID: 2100000, guid: 5c52d1e4271f37441b6574c98775c7ae, type: 2}
+  pcbTraceSlot: {fileID: 212873584245144336}
+  pcbTraceSprites:
+  - {fileID: 21300000, guid: d74085068c932d24e8763fb139a6c333, type: 3}
+  - {fileID: 21300002, guid: d74085068c932d24e8763fb139a6c333, type: 3}
+  - {fileID: 21300004, guid: d74085068c932d24e8763fb139a6c333, type: 3}
+  - {fileID: 21300006, guid: d74085068c932d24e8763fb139a6c333, type: 3}
+  - {fileID: 21300008, guid: d74085068c932d24e8763fb139a6c333, type: 3}
+  - {fileID: 21300010, guid: d74085068c932d24e8763fb139a6c333, type: 3}
+  - {fileID: 21300012, guid: d74085068c932d24e8763fb139a6c333, type: 3}
+  - {fileID: 21300014, guid: d74085068c932d24e8763fb139a6c333, type: 3}
+  - {fileID: 21300016, guid: d74085068c932d24e8763fb139a6c333, type: 3}
+  - {fileID: 21300018, guid: d74085068c932d24e8763fb139a6c333, type: 3}
+  - {fileID: 21300020, guid: d74085068c932d24e8763fb139a6c333, type: 3}
+  pcbChip: {fileID: 1756944640237308}
+  screwsIndiv:
+  - {fileID: 1312414611713656}
+  - {fileID: 1229628682393782}
+  - {fileID: 1745737710298748}
+  - {fileID: 1924913118416200}
+  - {fileID: 1327726430996224}
+  - {fileID: 1696695189957212}
+  - {fileID: 1273990519837602}
+  - {fileID: 1216033926751774}
+  - {fileID: 1050802310805548}
+  screwsVisual:
+  - {fileID: 33562925889701904}
+  - {fileID: 33622115875105876}
+  - {fileID: 33889840866141584}
+  - {fileID: 33091451102860160}
+  - {fileID: 33901461341277590}
+  - {fileID: 33184129451231724}
+  - {fileID: 33851659813292360}
+  - {fileID: 33022221820107384}
+  - {fileID: 33209113676078144}
+  screwTypes:
+  - {fileID: 4300000, guid: 51b48c329b073074fb3a1c9078f2c31b, type: 3}
+  - {fileID: 4300000, guid: 987ecd83b9fcf4d4daedc2fa4523b4fe, type: 3}
+  stampsIndiv:
+  - {fileID: 1483733697575972}
+  - {fileID: 1850843340611562}
+  stickerSlot: {fileID: 212809440689749604}
+  stickerSprites:
+  - {fileID: 21300000, guid: dc9b6898f2eda644ebb038e26d205857, type: 3}
+  - {fileID: 21300002, guid: dc9b6898f2eda644ebb038e26d205857, type: 3}
+  - {fileID: 21300004, guid: dc9b6898f2eda644ebb038e26d205857, type: 3}
+  - {fileID: 21300006, guid: dc9b6898f2eda644ebb038e26d205857, type: 3}
+  stickerLetter: {fileID: 102277686360044096}
+  thermoVisual: {fileID: 33302843732249852}
+  thermoHeights:
+  - {fileID: 4300000, guid: 572c905bb8e5a7c448c0b9181a60a289, type: 3}
+  - {fileID: 4300000, guid: 7b467f8de3590d542a9bd5e518204349, type: 3}
+  - {fileID: 4300000, guid: 13ef2c89aea597d418317e05012074e7, type: 3}
+  thermoLetter: {fileID: 102639207889747814}
 --- !u!114 &114505745482473818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5839,8 +5930,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300020, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5971,8 +6062,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300038, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300018, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6015,8 +6106,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300032, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300012, guid: 138fc95e459d6a94283a829179c1e6c2, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
