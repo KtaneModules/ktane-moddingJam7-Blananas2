@@ -68,6 +68,12 @@ public class Constraint
             case ConstraintType.StampMarkings:
                 constraintData = new int[] { Random.Range(0, 3) }; // Present markings (CLASSIFIED = 0, DECLASSIFIED = 1, CLASSIFIED & DECLASSIFIED = 2)
                 break;
+            case ConstraintType.Sticker:
+                constraintData = new int[] { Random.Range(0, 18) }; // Letter on sticker (A = 0, B = 1, ..., R = 17)
+                break;
+            case ConstraintType.Thermo:
+                constraintData = new int[] { Random.Range(0, 3), Random.Range(0, 7) }; // Thermometer reading | Letter next to thermo (A = 0, B = 1, ..., G = 6)
+                break;
         }
     }
 
@@ -102,6 +108,19 @@ public class Constraint
                     return leftDigit > rightDigit;
                 else if (constraintData[0] == 2)
                     return leftDigit == rightDigit;
+                else
+                    return null;
+            case ConstraintType.Matrix:
+                if (constraintData.Length != 1 || constraintData[0] < 0 || constraintData[0] > 9)
+                    return null;
+                if (constraintPosition == ConstraintPosition.TopLeft)
+                    return constraintData[0] >= leftDigit;
+                else if (constraintPosition == ConstraintPosition.TopRight)
+                    return constraintData[0] >= rightDigit;
+                else if (constraintPosition == ConstraintPosition.BottomLeft)
+                    return constraintData[0] <= leftDigit;
+                else if (constraintPosition == ConstraintPosition.BottomRight)
+                    return constraintData[0] <= rightDigit;
                 else
                     return null;
             default:
