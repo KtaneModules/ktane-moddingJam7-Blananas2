@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -63,13 +63,13 @@ public class Constraint
                 constraintData = new int[] { Random.Range(0, 2), Random.Range(0, 11) }; // Chip relative to board (Square = 0, 45 degrees = 1) | Trace layout (0 = │, 1 = ─, 2 = ┌, 3 = ┐, 4 = └, 5 = ┘, 6 = ├, 7 = ┤, 8 = ┬, 9 = ┴, 10 = ┼)
                 break;
             case ConstraintType.Screws:
-                constraintData = new int[] { Random.Range(0, 2), Random.Range(1, 10) }; // Screw type (Phillips = 0, Torx = 1) | Number of screws
+                constraintData = new int[] { Random.Range(0, 2), Random.Range(2, 10) }; // Screw type (Phillips = 0, Torx = 1) | Number of screws
                 break;
             case ConstraintType.StampMarkings:
                 constraintData = new int[] { Random.Range(0, 3) }; // Present markings (CLASSIFIED = 0, DECLASSIFIED = 1, CLASSIFIED & DECLASSIFIED = 2)
                 break;
             case ConstraintType.Sticker:
-                constraintData = new int[] { Random.Range(0, 18) }; // Letter on sticker (A = 0, B = 1, ..., R = 17)
+                constraintData = new int[] { Random.Range(0, 6) }; // Letter on sticker (B = 0, D = 1, E = 2, F = 3, G = 4, H = 5)
                 break;
             case ConstraintType.Thermo:
                 constraintData = new int[] { Random.Range(0, 3), Random.Range(0, 7) }; // Thermometer reading | Letter next to thermo (A = 0, B = 1, ..., G = 6)
@@ -127,7 +127,7 @@ public class Constraint
                 if (constraintData.Length != 2 || constraintData[1] < 1 || constraintData[1] > 9)
                     return null;
                 if (constraintData[0] == 0)
-                    return number % constraintData[1] == 0);
+                    return number % constraintData[1] == 0;
                 else if (constraintData[0] == 1)
                     return ((rightDigit * 10) + leftDigit) % constraintData[1] == 0;
                 else
