@@ -36,14 +36,14 @@ public enum ConstraintPosition
  */
 public class Constraint
 {
-    ConstraintType constraintType;
-    ConstraintPosition constraintPosition;
+    public ConstraintType constraintType;
+    public ConstraintPosition constraintPosition;
     public int[] constraintData;
 
-    // Randomly generate a constraint when a new constraint object is created
-    public Constraint(ConstraintPosition position)
+    // Sets the variables of the constraint when a new constraint object is created
+    public Constraint(ConstraintType type, ConstraintPosition position)
     {
-        constraintType = (ConstraintType)Random.Range(0, 9);
+        constraintType = type;
         constraintPosition = position;
         switch (constraintType)
         {
@@ -184,5 +184,11 @@ public class Constraint
             default:
                 return null;
         }
+    }
+
+    // Overrides the ToString method to return a custom string for the constraint
+    public override string ToString()
+    {
+        return string.Format("The {0} constraint is a {1}", constraintPosition, constraintType);
     }
 }

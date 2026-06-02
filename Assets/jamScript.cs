@@ -72,7 +72,9 @@ public class jamScript : MonoBehaviour {
     void Start () {
         SetSegmentsToNumber(99);
         StartCoroutine(Timer());
-        SetObject(new Constraint(ConstraintPosition.TopLeft));
+        Constraint topLeftConstraint = new Constraint(ConstraintType.Compass, ConstraintPosition.TopLeft);
+        Debug.Log(topLeftConstraint.ToString());
+        SetObject(topLeftConstraint);
     }
 
     // Update is called once per frame
