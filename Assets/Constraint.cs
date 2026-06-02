@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -121,6 +121,15 @@ public class Constraint
                     return constraintData[0] <= leftDigit;
                 else if (constraintPosition == ConstraintPosition.BottomRight)
                     return constraintData[0] <= rightDigit;
+                else
+                    return null;
+            case ConstraintType.Screws:
+                if (constraintData.Length != 2 || constraintData[1] < 1 || constraintData[1] > 9)
+                    return null;
+                if (constraintData[0] == 0)
+                    return number % constraintData[1] == 0);
+                else if (constraintData[0] == 1)
+                    return ((rightDigit * 10) + leftDigit) % constraintData[1] == 0;
                 else
                     return null;
             default:
