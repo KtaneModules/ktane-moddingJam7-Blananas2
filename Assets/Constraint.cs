@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /*
  * The types of constraints the module can generate
@@ -51,7 +53,13 @@ public class Constraint
                 constraintData = new int[] { Random.Range(0, 2), Random.Range(0, 4) }; // Needle color (Red = 0, Black = 1) | Direction of needle (North = 0, East = 1, South = 2, West = 3)
                 break;
             case ConstraintType.Domino:
-                constraintData = new int[] { Random.Range(0, 2), Random.Range(0, 10), Random.Range(0, 10) }; // Pip color (White = 0, Black = 1) | Number of top pips | Number of bottom pips
+                int[] dominoConstraintData = new int[] { Random.Range(0, 2), Random.Range(0, 10), Random.Range(0, 10) }; // Pip color (White = 0, Black = 1) | Number of top pips | Number of bottom pips
+                while (dominoConstraintData[0] == 1 && Math.Abs(dominoConstraintData[1] - dominoConstraintData[2]) < 2) // Make sure black pip color domino has pip count with absolute difference of at least 2
+                {
+                    dominoConstraintData[1] = Random.Range(0, 10);
+                    dominoConstraintData[2] = Random.Range(0, 10);
+                }
+                constraintData = dominoConstraintData;
                 break;
             case ConstraintType.Gear:
                 constraintData = new int[] { Random.Range(0, 3) }; // Gear spin direction (Clockwise = 0, Counter-clockwise = 1, Stationary = 2)
@@ -124,7 +132,7 @@ public class Constraint
                 else
                     return null;
             case ConstraintType.Screws:
-                if (constraintData.Length != 2 || constraintData[1] < 1 || constraintData[1] > 9)
+                if (constraintData.Length != 2 || constraintData[1] < 2 || constraintData[1] > 9)
                     return null;
                 if (constraintData[0] == 0)
                     return number % constraintData[1] == 0;
@@ -198,6 +206,6 @@ public class Constraint
     // Overrides the ToString method to return a custom string for the constraint
     public override string ToString()
     {
-        return string.Format("The {0} constraint is a {1}", constraintPosition, constraintType);
+        return string.Format("The {0} constraint is {1}", constraintPosition, constraintType);
     }
 }
