@@ -20,12 +20,14 @@
         }
         td h3, td p { margin-left: 0.5em; }
 
-        img.object {
+        img.object, div.svg-stack {
             float: right;
             margin-top: 1em;
             margin-right: 0.5em;
         }
-        .dark img.object, .dark img.screw { filter: invert(88%); }
+        .svg-stack.img { display: block; }
+        img.pigpenref { margin-top: 3.5em; }
+        .dark img { filter: invert(88%); }
         img.screw { 
             margin-bottom: 4px;
             margin-right: 1px;
@@ -105,9 +107,12 @@
                             <p>If a marking says “CLASSIFIED”, the number of lit segments is prime. If a marking says “DECLASSIFIED”, the displayed number is prime. Multiple markings may be present. If only one marking is present on the module, the other quantity is not prime.</p>
                         </td>
                         <td>
-                            <img class="object" src="img/Module Name/sticker.svg">
+                            <div class="svg-stack">
+                                <div><img src="img/Module Name/sticker.svg"></div>
+                                <div><img class="pigpenref" src="img/Module Name/pigpen ref.svg"></div>
+                            </div>
                             <h3>Sticker</h3>
-                            <p>At least one of the four object spaces are surrounded by lit segments which match that of the letter present on the sticker encoded using a Pigpen cipher. TODO: place diagram here</p>
+                            <p>At least one of the four object spaces are surrounded by lit segments which match that of the letter present on the sticker encoded using a Pigpen cipher.</p>
                         </td>
                     </tr>
                     <tr>
