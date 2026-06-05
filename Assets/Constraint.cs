@@ -18,7 +18,8 @@ public enum ConstraintType
     Screws,
     StampMarkings,
     Sticker,
-    Thermo
+    Thermo,
+    Vectorscope
 }
 
 /*
@@ -81,6 +82,9 @@ public class Constraint
                 break;
             case ConstraintType.Thermo:
                 constraintData = new int[] { Random.Range(0, 3), Random.Range(0, 7) }; // Thermometer reading | Letter next to thermo (A = 0, B = 1, ..., G = 6)
+                break;
+            case ConstraintType.Vectorscope:
+                constraintData = new int[] { Random.Range(0, 10) }; //Vectorscope reading
                 break;
         }
     }

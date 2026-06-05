@@ -39,6 +39,9 @@ public class jamScript : MonoBehaviour {
     public MeshFilter thermoVisual;
     public Mesh[] thermoHeights;
     public TextMesh thermoLetter;
+    public GameObject vectorscopeLine;
+    public SpriteRenderer vectorscopeSlot;
+    public Sprite[] vectorscopeSprites;
 
     public static bool[][] digitSegmentStates =
     {
@@ -79,7 +82,7 @@ public class jamScript : MonoBehaviour {
         Constraint topLeftConstraint = new Constraint(ConstraintType.PCB, ConstraintPosition.TopLeft);
         Constraint topRightConstraint = new Constraint(ConstraintType.Screws, ConstraintPosition.TopRight);
         Constraint bottomLeftConstraint = new Constraint(ConstraintType.StampMarkings, ConstraintPosition.BottomLeft);
-        Constraint bottomRightConstraint = new Constraint(ConstraintType.Thermo, ConstraintPosition.BottomRight);
+        Constraint bottomRightConstraint = new Constraint(ConstraintType.Vectorscope, ConstraintPosition.BottomRight);
         ObjectReset(topLeftConstraint, topRightConstraint, bottomLeftConstraint, bottomRightConstraint);
     }
 
@@ -173,7 +176,7 @@ public class jamScript : MonoBehaviour {
                     dominoPipSlots[s].color = data[0] == 0 ? Color.white : Color.black;
                 dominoPipSlots[0].sprite = dominoPips[data[1]];
                 dominoPipSlots[1].sprite = dominoPips[data[2]];
-                objWhole.transform.localRotation = Quaternion.Euler(0f, Rnd.Range(0, 360) * 1f, 0f);
+                objWhole.transform.localRotation = Quaternion.Euler(0f, Rnd.Range(0, 3600) * 0.1f, 0f);
                 break;
             case ConstraintType.Gear:
                 objWhole = objectWholes[2];
@@ -200,7 +203,7 @@ public class jamScript : MonoBehaviour {
                 ourScrews.Shuffle();
                 for (int s = 0; s < 9; s++)
                     screwsIndiv[s].SetActive(ourScrews[s]);
-                objWhole.transform.localRotation = Quaternion.Euler(0f, Rnd.Range(0, 360) * 1f, 0f);
+                objWhole.transform.localRotation = Quaternion.Euler(0f, Rnd.Range(0, 3600) * 0.1f, 0f);
                 objWhole.transform.localScale = new UnityEngine.Vector3(Rnd.Range(0, 2) == 0 ? 0.9f : -0.9f, 0.9f, Rnd.Range(0, 2) == 0 ? 0.9f : -0.9f);
                 break;
             case ConstraintType.StampMarkings:
@@ -212,12 +215,17 @@ public class jamScript : MonoBehaviour {
                 objWhole = objectWholes[7];
                 stickerSlots[0].sprite = stickerLetterSprites[data[0]];
                 stickerSlots[1].sprite = stickerBackSprites[Rnd.Range(0, stickerBackSprites.Length)];
-                objWhole.transform.localRotation = Quaternion.Euler(0f, Rnd.Range(-20, 21) * 1f, 0f);
+                objWhole.transform.localRotation = Quaternion.Euler(0f, Rnd.Range(-200, 201) * 0.1f, 0f);
                 break;
             case ConstraintType.Thermo:
                 objWhole = objectWholes[8];
                 thermoVisual.mesh = thermoHeights[data[0]];
                 thermoLetter.text = (char)('A' + data[1]) + "°";
+                break;
+            case ConstraintType.Vectorscope:
+                objWhole = objectWholes[9];
+                vectorscopeSlot.sprite = vectorscopeSprites[data[0]];
+                vectorscopeLine.transform.localRotation = Quaternion.Euler(0f, 90f, Rnd.Range(-70, 71) * 0.1f);
                 break;
         }
 
