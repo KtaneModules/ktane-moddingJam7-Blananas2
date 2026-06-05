@@ -80,8 +80,8 @@ public class jamScript : MonoBehaviour {
     void Start () {
         SetSegmentsToNumber(99);
         Constraint topLeftConstraint = new Constraint(ConstraintType.PCB, ConstraintPosition.TopLeft);
-        Constraint topRightConstraint = new Constraint(ConstraintType.Screws, ConstraintPosition.TopRight);
-        Constraint bottomLeftConstraint = new Constraint(ConstraintType.StampMarkings, ConstraintPosition.BottomLeft);
+        Constraint topRightConstraint = new Constraint(ConstraintType.Gear, ConstraintPosition.TopRight);
+        Constraint bottomLeftConstraint = new Constraint(ConstraintType.Matrix, ConstraintPosition.BottomLeft);
         Constraint bottomRightConstraint = new Constraint(ConstraintType.Vectorscope, ConstraintPosition.BottomRight);
         ObjectReset(topLeftConstraint, topRightConstraint, bottomLeftConstraint, bottomRightConstraint);
     }
