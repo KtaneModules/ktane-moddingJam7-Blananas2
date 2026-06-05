@@ -1,7 +1,7 @@
 {
-  "name": "jam-Editor",
+  "name": "galacticFragility-Editor",
   "references": [
-    "jam"
+    "galacticFragility"
   ],
   "includePlatforms": [
     "Editor"
