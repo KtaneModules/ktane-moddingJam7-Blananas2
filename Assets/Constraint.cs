@@ -147,6 +147,20 @@ public class Constraint
                     return constraintData[0] <= rightDigit;
                 else
                     return null;
+            case ConstraintType.PCB:
+                int[] releventSegments = GetPCBSegmentIndexes();
+                if (releventSegments == null)
+                    return null;
+                bool[] segmentsLit = new bool[releventSegments.Length];
+                for (int i = 0; i < segmentsLit.Length; i++)
+                    if ((releventSegments[i] <= 6 && jamScript.digitSegmentStates[leftDigit][releventSegments[i]]) || (releventSegments[i] > 6 && jamScript.digitSegmentStates[rightDigit][releventSegments[i] - 7]))
+                        segmentsLit[i] = true;
+                if (constraintData[0] == 0)
+                    return segmentsLit.All(x => x) || segmentsLit.All(x => !x);
+                else if (constraintData[0] == 1)
+                    return segmentsLit.Count(x => x) == 1;
+                else
+                    return null;
             case ConstraintType.Screws:
                 if (constraintData.Length != 2 || constraintData[1] < 2 || constraintData[1] > 9)
                     return null;
@@ -245,6 +259,11 @@ public class Constraint
             default:
                 return null;
         }
+    }
+
+    int[] GetPCBSegmentIndexes()
+    {
+        
     }
 
     int[][] GetStickerSegmentIndexes()
