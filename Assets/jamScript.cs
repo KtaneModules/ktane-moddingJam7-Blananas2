@@ -9,13 +9,14 @@ using Rnd = UnityEngine.Random;
 
 public class jamScript : MonoBehaviour {
 
-    public KMBombInfo Bomb;
+    public KMBombModule Module;
     public KMAudio Audio;
 
     public MeshRenderer[] leftDisplaySegments;
     public MeshRenderer[] rightDisplaySegments;
     public Material[] segmentStateMaterials;
-    public GameObject[] coverObjects;
+    public GameObject[] quadrantObjects;
+    public Transform[] quadrantPivots;
 
     public GameObject[] objectWholes; //these contain the entirety of what makes up each object; ordered same as ConstraintType enum
     public MeshRenderer compassNeedle;
@@ -56,14 +57,8 @@ public class jamScript : MonoBehaviour {
         new bool[] { true, true, true, true, true, true, true },      // 8
         new bool[] { true, true, true, true, false, true, true }      // 9
     };
-    public static Vector3[] quadrantPositions =
-    {
-        new Vector3(-0.036f, 0.015f, 0.011f),
-        new Vector3(0.036f, 0.015f, 0.011f),
-        new Vector3(-0.036f, 0.015f, -0.0409f),
-        new Vector3(0.036f, 0.015f, -0.0409f)
-    };
     int currentNumber = 99;
+    Constraint[] currentConstraints = { null, null, null, null };
 
     //Logging
     static int moduleIdCounter = 1;
@@ -74,16 +69,17 @@ public class jamScript : MonoBehaviour {
         moduleId = moduleIdCounter++;
 
         //button.OnInteract += delegate () { buttonPress(); return false; };
+
+        Module.OnActivate += delegate () { StartCoroutine(ModuleStart()); };
     }
 
     // Use this for initialization
     void Start () {
-        SetSegmentsToNumber(99);
-        Constraint topLeftConstraint = new Constraint(ConstraintType.PCB, ConstraintPosition.TopLeft);
-        Constraint topRightConstraint = new Constraint(ConstraintType.Gear, ConstraintPosition.TopRight);
-        Constraint bottomLeftConstraint = new Constraint(ConstraintType.Matrix, ConstraintPosition.BottomLeft);
-        Constraint bottomRightConstraint = new Constraint(ConstraintType.Vectorscope, ConstraintPosition.BottomRight);
-        ObjectReset(topLeftConstraint, topRightConstraint, bottomLeftConstraint, bottomRightConstraint);
+        currentConstraints[0] = new Constraint(ConstraintType.PCB, ConstraintPosition.TopLeft);
+        currentConstraints[1] = new Constraint(ConstraintType.Gear, ConstraintPosition.TopRight);
+        currentConstraints[2] = new Constraint(ConstraintType.Matrix, ConstraintPosition.BottomLeft);
+        currentConstraints[3] = new Constraint(ConstraintType.Vectorscope, ConstraintPosition.BottomRight);
+        ObjectReset(currentConstraints);
     }
 
     // Update is called once per frame
@@ -96,6 +92,17 @@ public class jamScript : MonoBehaviour {
 
     }
     */
+
+    IEnumerator ModuleStart()
+    {
+        for (int q = 0; q < 4; q++)
+        {
+            StartCoroutine(QuadMove(true, currentConstraints[q]));
+            yield return new WaitForSeconds(0.25f);
+        }
+        SetSegmentsToNumber(99);
+        StartCoroutine(Timer());
+    }
 
     void SetSegmentsToNumber(int number)
     {
@@ -115,42 +122,49 @@ public class jamScript : MonoBehaviour {
             if (currentNumber < 0)
                 currentNumber = 99; //later, handle switching the puzzle
             SetSegmentsToNumber(currentNumber);
-
-            /* //this here is to test the uncover function
-            if (currentNumber < 96 && currentNumber > 91)
-                StartCoroutine(Uncover(95 - currentNumber));
-            */
         }
     }
 
-    IEnumerator Uncover(int coverIx) //this function currently does not work, rotation doesn't look quite right; may replace entirely
+    IEnumerator QuadMove(bool d, Constraint cons)
     {
-        var coverObj = coverObjects[coverIx];
-        var startRotation = Quaternion.Euler(0f, 0f, 0f);
-        var endRotation = Quaternion.Euler(-180f, 0f, 0f);
+        int qix = (int)cons.constraintPosition;
+        int qo = (int)cons.constraintType;
+        var quadDoor = quadrantObjects[qix];
+        var quadObj = objectWholes[qo];
+        var pivotObj = quadrantPivots[qix];
+        var startRotation = Quaternion.Euler(0f, 0f, d ? -180f : 0f);
+        var endRotation = Quaternion.Euler(0f, 0f, d ? 0f : -180f);
 
         float elapsed = 0f;
         float duration = 0.25f;
 
+        PutObjectAtPivot(quadObj.transform, pivotObj.transform);
+        quadObj.SetActive(true);
+
         while (elapsed < duration)
         {
-            coverObj.transform.localRotation = Quaternion.Slerp(startRotation, endRotation, elapsed / duration);
+            quadDoor.transform.localRotation = Quaternion.Slerp(startRotation, endRotation, elapsed / duration);
+            PutObjectAtPivot(quadObj.transform, pivotObj.transform);
             yield return null;
             elapsed += Time.deltaTime;
         }
-        coverObj.SetActive(false);
+        quadDoor.transform.localRotation = Quaternion.Slerp(startRotation, endRotation, elapsed / duration);
+        PutObjectAtPivot(quadObj.transform, pivotObj.transform);
     }
 
-    void ObjectReset(Constraint tlc, Constraint trc, Constraint blc, Constraint brc) //only feed into this function when the puzzle is considered valid
+    void PutObjectAtPivot(Transform o, Transform p)
+    {
+        o.position = p.position;
+        o.rotation = p.rotation;
+    }
+
+    void ObjectReset(Constraint[] cons) //only feed into this function when the puzzle is considered valid
     {
         StopAllCoroutines();
         for (int j = 0; j < objectWholes.Length; j++)
             objectWholes[j].SetActive(false);
-        SetObject(tlc);
-        SetObject(trc);
-        SetObject(blc);
-        SetObject(brc);
-        StartCoroutine(Timer());
+        for (int k = 0; k < 4; k++)
+            SetObject(cons[k]);
     }
 
     void SetObject(Constraint cs)
@@ -228,16 +242,6 @@ public class jamScript : MonoBehaviour {
                 vectorscopeLine.transform.localRotation = Quaternion.Euler(0f, 90f, Rnd.Range(-70, 71) * 0.1f);
                 break;
         }
-
-        switch (cs.constraintPosition)
-        {
-            case ConstraintPosition.TopLeft: objWhole.transform.localPosition = quadrantPositions[0]; break;
-            case ConstraintPosition.TopRight: objWhole.transform.localPosition = quadrantPositions[1]; break;
-            case ConstraintPosition.BottomLeft: objWhole.transform.localPosition = quadrantPositions[2]; break;
-            case ConstraintPosition.BottomRight: objWhole.transform.localPosition = quadrantPositions[3]; break;
-        }
-
-        objWhole.SetActive(true);
     }
 
     IEnumerator GearSpin(float dir)
