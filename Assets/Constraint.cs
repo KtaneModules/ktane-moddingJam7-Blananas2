@@ -167,6 +167,14 @@ public class Constraint
                     return IsPrime(jamScript.digitSegmentStates[leftDigit].Count(x => x) + jamScript.digitSegmentStates[rightDigit].Count(x => x)) && IsPrime(number);
                 else
                     return null;
+            case ConstraintType.Sticker:
+                int[][] releventSegmentsForPositions = GetStickerSegmentIndexes();
+                if (releventSegmentsForPositions == null)
+                    return null;
+                bool[] litSegmentsForPositionMakePigpen = new bool[4];
+                for (int i = 0; i < litSegmentsForPositionMakePigpen.Length; i++)
+                    litSegmentsForPositionMakePigpen[i] = releventSegmentsForPositions[i].All(x => x);
+                return litSegmentsForPositionMakePigpen.Any(x => x);
             case ConstraintType.Thermo:
                 if (constraintData.Length != 2 || constraintData[0] < 0 || constraintData[0] > 2 || constraintData[1] < 0 || constraintData[1] > 6)
                     return null;
@@ -237,6 +245,11 @@ public class Constraint
             default:
                 return null;
         }
+    }
+
+    int[][] GetStickerSegmentIndexes()
+    {
+        
     }
 
     // Returns true if the provided number is prime
