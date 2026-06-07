@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -167,6 +167,11 @@ public class Constraint
                     return IsPrime(jamScript.digitSegmentStates[leftDigit].Count(x => x) + jamScript.digitSegmentStates[rightDigit].Count(x => x)) && IsPrime(number);
                 else
                     return null;
+            case ConstraintType.Thermo:
+                if (constraintData.Length != 2 || constraintData[0] < 0 || constraintData[0] > 2 || constraintData[1] < 0 || constraintData[1] > 6)
+                    return null;
+                bool[] segmentsLit = new bool[] { jamScript.digitSegmentStates[leftDigit][constraintData[1]], jamScript.digitSegmentStates[rightDigit][constraintData[1]] };
+                return segmentsLit.Count(x => x) == constraintData[0];
             case ConstraintType.Vectorscope:
                 if (constraintData.Length != 1 || constraintData[0] < 0 || constraintData[0] > 9)
                     return null;
