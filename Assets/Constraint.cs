@@ -84,7 +84,7 @@ public class Constraint
                 constraintData = new int[] { Random.Range(0, 3), Random.Range(0, 7) }; // Thermometer reading | Letter next to thermo (A = 0, B = 1, ..., G = 6)
                 break;
             case ConstraintType.Vectorscope:
-                constraintData = new int[] { Random.Range(0, 10) }; //Vectorscope reading
+                constraintData = new int[] { Random.Range(0, 10) }; // Vectorscope reading
                 break;
         }
     }
@@ -109,6 +109,18 @@ public class Constraint
                     return segmentsLit.All(x => x);
                 else if (constraintData[0] == 1)
                     return segmentsLit.All(x => !x);
+                else
+                    return null;
+            case ConstraintType.Domino:
+                if (constraintData.Length != 3 || constraintData[1] < 0 || constraintData[1] > 9 || constraintData[2] < 0 || constraintData[2] > 9 || (constraintData[0] == 1 && Math.Abs(constraintData[1] - constraintData[2]) < 2))
+                    return null;
+                int absoluteDifference = Math.Abs(leftDigit - rightDigit);
+                int minPips = Math.Min(constraintData[1], constraintData[2]);
+                int maxPips = Math.Max(constraintData[1], constraintData[2]);
+                if (constraintData[0] == 0)
+                    return minPips <= absoluteDifference && absoluteDifference <= maxPips;
+                else if (constraintData[0] == 1)
+                    return minPips < absoluteDifference && absoluteDifference < maxPips;
                 else
                     return null;
             case ConstraintType.Gear:
@@ -144,6 +156,21 @@ public class Constraint
                     return ((rightDigit * 10) + leftDigit) % constraintData[1] == 0;
                 else
                     return null;
+            case ConstraintType.StampMarkings:
+                if (constraintData.Length != 1)
+                    return null;
+                if (constraintData[0] == 0)
+                    return IsPrime(jamScript.digitSegmentStates[leftDigit].Count(x => x) + jamScript.digitSegmentStates[rightDigit].Count(x => x)) && !IsPrime(number);
+                else if (constraintData[0] == 1)
+                    return !IsPrime(jamScript.digitSegmentStates[leftDigit].Count(x => x) + jamScript.digitSegmentStates[rightDigit].Count(x => x)) && IsPrime(number);
+                else if (constraintData[0] == 2)
+                    return IsPrime(jamScript.digitSegmentStates[leftDigit].Count(x => x) + jamScript.digitSegmentStates[rightDigit].Count(x => x)) && IsPrime(number);
+                else
+                    return null;
+            case ConstraintType.Vectorscope:
+                if (constraintData.Length != 1 || constraintData[0] < 0 || constraintData[0] > 9)
+                    return null;
+                return leftDigit != constraintData[0] && rightDigit != constraintData[0];
             default:
                 return null;
         }
@@ -207,9 +234,25 @@ public class Constraint
         }
     }
 
+    // Returns true if the provided number is prime
+    bool IsPrime(int number)
+    {
+        if (number <= 1) return false;
+        if (number == 2) return true;
+        if (number % 2 == 0) return false;
+
+        var boundary = (int)Math.Floor(Math.Sqrt(number));
+
+        for (int i = 3; i <= boundary; i += 2)
+            if (number % i == 0)
+                return false;
+
+        return true;
+    }
+
     // Overrides the ToString method to return a custom string for the constraint
     public override string ToString()
     {
-        return string.Format("The {0} constraint is {1}", constraintPosition, constraintType);
+        return string.Format("The {0} constraint is a {1}", constraintPosition, constraintType);
     }
 }
