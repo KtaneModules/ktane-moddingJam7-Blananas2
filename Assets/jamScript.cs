@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,11 +95,15 @@ public class jamScript : MonoBehaviour {
                 previousLogging[k] = currentLogging[k];
             }
         
-        //replace this with the actual puzzle gen code!!
-        currentConstraints[0] = new Constraint(ConstraintType.PCB, ConstraintPosition.TopLeft);
-        currentConstraints[1] = new Constraint(ConstraintType.Gear, ConstraintPosition.TopRight);
-        currentConstraints[2] = new Constraint(ConstraintType.Matrix, ConstraintPosition.BottomLeft);
-        currentConstraints[3] = new Constraint(ConstraintType.Vectorscope, ConstraintPosition.BottomRight);
+        remakeConstraints:
+        currentConstraints[0] = new Constraint(Rnd.Range(0, 10), ConstraintPosition.TopLeft);
+        currentConstraints[1] = new Constraint(Rnd.Range(0, 10), ConstraintPosition.TopRight);
+        currentConstraints[2] = new Constraint(Rnd.Range(0, 10), ConstraintPosition.BottomLeft);
+        currentConstraints[3] = new Constraint(Rnd.Range(0, 10), ConstraintPosition.BottomRight);
+        for (int i = 0; i < 100; i++)
+            if (SolutionValid(currentConstraints, i))
+                return;
+        goto remakeConstraints;
     }
 
     void ButtonPress() 
