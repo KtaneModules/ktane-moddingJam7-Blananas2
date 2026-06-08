@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -467,6 +467,7 @@ public class Constraint
                 constraintDataString = "with a line going through box " + constraintData[0];
                 break;
         }
-        return string.Format("The {0} constraint is a {1} {2}", constraintPosition, constraintType, constraintDataString);
+        string[] positionNames = { "top-left", "top-right", "bottom-left", "bottom-right" };
+        return string.Format("The {0} constraint was a {1} {2}", positionNames[(int)constraintPosition], constraintType, constraintDataString);
     }
 }

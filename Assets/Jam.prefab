@@ -5387,8 +5387,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf694ae2be2ba54f90dac772e84f0d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bomb: {fileID: 114392861769032698}
+  Module: {fileID: 114745828406521922}
   Audio: {fileID: 114113916161553536}
+  Button: {fileID: 114989610778018248}
   leftDisplaySegments:
   - {fileID: 23232561670998634}
   - {fileID: 23793513846781506}
@@ -5586,8 +5587,8 @@ MonoBehaviour:
   m_Script: {fileID: -119419473, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModuleType: galacticFragility
-  ModuleDisplayName: Galactic Fragility
+  ModuleType: galaticFragility
+  ModuleDisplayName: Galatic Fragility
   RequiresTimerVisibility: 0
 --- !u!114 &114807750501322650
 MonoBehaviour:

@@ -12,6 +12,7 @@ public class jamScript : MonoBehaviour {
     public KMBombModule Module;
     public KMAudio Audio;
 
+    public KMSelectable Button;
     public MeshRenderer[] leftDisplaySegments;
     public MeshRenderer[] rightDisplaySegments;
     public Material[] segmentStateMaterials;
@@ -57,59 +58,115 @@ public class jamScript : MonoBehaviour {
         new bool[] { true, true, true, true, true, true, true },      // 8
         new bool[] { true, true, true, true, false, true, true }      // 9
     };
-    int currentNumber = 99;
+    int currentNumber = 100;
+    bool submitAllowed = false;
     Constraint[] currentConstraints = { null, null, null, null };
+    Constraint[] previousConstraints = { null, null, null, null };
+    string[] currentLogging = { null, null, null, null };
+    string[] previousLogging = { null, null, null, null };
 
     //Logging
     static int moduleIdCounter = 1;
     int moduleId;
     private bool moduleSolved;
 
-    void Awake () {
+    void Awake () 
+    {
         moduleId = moduleIdCounter++;
 
-        //button.OnInteract += delegate () { buttonPress(); return false; };
+        Button.OnInteract += delegate () { ButtonPress(); return false; };
 
         Module.OnActivate += delegate () { StartCoroutine(ModuleStart()); };
     }
 
     // Use this for initialization
-    void Start () {
+    void Start () 
+    {
+        GeneratePuzzle();
+        ObjectReset(currentConstraints);
+    }
+
+    void GeneratePuzzle()
+    {
+        if (!currentConstraints.Contains(null))
+            for (int k = 0; k < 4; k++)
+            {
+                previousConstraints[k] = currentConstraints[k];
+                previousLogging[k] = currentLogging[k];
+            }
+        
+        //replace this with the actual puzzle gen code!!
         currentConstraints[0] = new Constraint(ConstraintType.PCB, ConstraintPosition.TopLeft);
         currentConstraints[1] = new Constraint(ConstraintType.Gear, ConstraintPosition.TopRight);
         currentConstraints[2] = new Constraint(ConstraintType.Matrix, ConstraintPosition.BottomLeft);
         currentConstraints[3] = new Constraint(ConstraintType.Vectorscope, ConstraintPosition.BottomRight);
-        ObjectReset(currentConstraints);
     }
 
-    // Update is called once per frame
-    void Update () {
+    void ButtonPress() 
+    {
+        Button.AddInteractionPunch(1f);
 
+        if (moduleSolved || !submitAllowed)
+            return;
+
+        if (previousConstraints.Contains(null))
+        {
+            Debug.LogFormat("[Galatic Fragility #{0}] Attempted to submit too early. Strike!", moduleId);
+            Module.HandleStrike();
+            return;
+        }
+        
+        Debug.LogFormat("[Galatic Fragility #{0}] Button pressed at {1}. The objects were the following:", moduleId, currentNumber.ToString().PadLeft(2, '0'));
+        for (int l = 0; l < 4; l++)
+            Debug.LogFormat("[Galatic Fragility #{0}] {1}", moduleId, previousLogging[l]);
+
+        if (SolutionValid(previousConstraints, currentNumber))
+        {
+            StopAllCoroutines();
+            SetSegmentsToNumber(-1);
+            StartCoroutine(SolveAnim());
+        } else
+        {
+            Debug.LogFormat("[Galatic Fragility #{0}] Your submission is invalid. Strike!", moduleId);
+            Module.HandleStrike();
+        }
     }
 
-    /*
-    void buttonPress() {
-
+    bool SolutionValid(Constraint[] constraints, int number)
+    {
+        for (int u = 0; u < 4; u++)
+            if (constraints[u].NumberPassesConstraint(number) != true)
+                return false;
+        
+        return true;
     }
-    */
 
     IEnumerator ModuleStart()
     {
-        for (int q = 0; q < 4; q++)
-        {
-            StartCoroutine(QuadMove(true, currentConstraints[q]));
-            yield return new WaitForSeconds(0.25f);
-        }
-        SetSegmentsToNumber(99);
+        StartCoroutine(MoveFour(true));
+        SetSegmentsToNumber(-1);
+        yield return new WaitForSeconds(0.25f);
         StartCoroutine(Timer());
+        yield return null;
     }
 
     void SetSegmentsToNumber(int number)
     {
-        for (int i = 0; i < 7; i++)
+        if (number > -1)
         {
-            leftDisplaySegments[i].material = digitSegmentStates[number / 10][i] ? segmentStateMaterials[1] : segmentStateMaterials[0];
-            rightDisplaySegments[i].material = digitSegmentStates[number % 10][i] ? segmentStateMaterials[1] : segmentStateMaterials[0];
+            for (int i = 0; i < 7; i++)
+            {
+                leftDisplaySegments[i].material = segmentStateMaterials[digitSegmentStates[number / 10][i] ? 1 : 0];
+                rightDisplaySegments[i].material = segmentStateMaterials[digitSegmentStates[number % 10][i] ? 1 : 0];
+            }
+        } 
+        else
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                leftDisplaySegments[i].material = segmentStateMaterials[0];
+                rightDisplaySegments[i].material = segmentStateMaterials[0];
+            }
         }
     }
 
@@ -118,10 +175,29 @@ public class jamScript : MonoBehaviour {
         while (!moduleSolved)
         {
             yield return new WaitForSeconds(0.75f);
+            submitAllowed = true;
             currentNumber--;
             if (currentNumber < 0)
-                currentNumber = 99; //later, handle switching the puzzle
+            {
+                submitAllowed = false;
+                SetSegmentsToNumber(-1);
+                GeneratePuzzle();
+                StartCoroutine(MoveFour(false));
+                yield return new WaitForSeconds(1f);
+                StartCoroutine(MoveFour(true));
+                yield return new WaitForSeconds(1f);
+                currentNumber = 99;
+            }
             SetSegmentsToNumber(currentNumber);
+        }
+    }
+    
+    IEnumerator MoveFour(bool b) {
+        int[] Order = Enumerable.Range(0, 4).ToArray().Shuffle();
+        for (int q = 0; q < 4; q++)
+        {
+            StartCoroutine(QuadMove(b, currentConstraints[Order[q]]));
+            yield return new WaitForSeconds(0.25f);
         }
     }
 
@@ -167,14 +243,40 @@ public class jamScript : MonoBehaviour {
             SetObject(cons[k]);
     }
 
+    IEnumerator SolveAnim()
+    {
+        StartCoroutine(MoveFour(false));
+        for (int g = 0; g < 10; g++)
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                leftDisplaySegments[i].material = segmentStateMaterials[Rnd.Range(0, 2)];
+                rightDisplaySegments[i].material = segmentStateMaterials[Rnd.Range(0, 2)];
+            }
+            yield return new WaitForSeconds(0.1f);   
+        }
+        for (int i = 0; i < 7; i++)
+        {
+            leftDisplaySegments[i].material = segmentStateMaterials[(i == 2 || i == 3) ? 0 : 1];
+            rightDisplaySegments[i].material = segmentStateMaterials[(i == 2 || i == 3) ? 0 : 1];
+        }
+        Debug.LogFormat("[Galatic Fragility #{0}] Your submission is valid. Module solved.", moduleId);
+        Module.HandlePass();
+        moduleSolved = true;
+    }
+
     void SetObject(Constraint cs)
     {
         var data = cs.constraintData;
         GameObject objWhole = objectWholes[0];
 
-        Debug.Log(cs.ToString());
+        currentLogging[(int)cs.constraintPosition] = cs.ToString();
+
+        /*
         for (int d = 0; d < data.Length; d++)
             Debug.LogFormat("{0}: {1}", d, data[d]);
+        Debug.Log(cs.ToString());
+        */
 
         switch (cs.constraintType)
         {

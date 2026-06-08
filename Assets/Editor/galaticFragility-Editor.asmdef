@@ -1,7 +1,7 @@
 {
-  "name": "galacticFragility-Editor",
+  "name": "galaticFragility-Editor",
   "references": [
-    "galacticFragility"
+    "galaticFragility"
   ],
   "includePlatforms": [
     "Editor"
