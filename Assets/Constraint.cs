@@ -468,6 +468,6 @@ public class Constraint
                 break;
         }
         string[] positionNames = { "top-left", "top-right", "bottom-left", "bottom-right" };
-        return string.Format("The {0} constraint was a {1} {2}", positionNames[(int)constraintPosition], constraintType, constraintDataString);
+        return string.Format("The {0} constraint was {1} {2}", positionNames[(int)constraintPosition], constraintType, constraintDataString).Replace("StampMarkings", "Stamp Markings");
     }
 }

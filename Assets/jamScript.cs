@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,10 +96,11 @@ public class jamScript : MonoBehaviour {
             }
         
         remakeConstraints:
-        currentConstraints[0] = new Constraint(Rnd.Range(0, 10), ConstraintPosition.TopLeft);
-        currentConstraints[1] = new Constraint(Rnd.Range(0, 10), ConstraintPosition.TopRight);
-        currentConstraints[2] = new Constraint(Rnd.Range(0, 10), ConstraintPosition.BottomLeft);
-        currentConstraints[3] = new Constraint(Rnd.Range(0, 10), ConstraintPosition.BottomRight);
+        int[] ObjectTypes = Enumerable.Range(0, 10).ToArray().Shuffle();
+        currentConstraints[0] = new Constraint((ConstraintType)ObjectTypes[0], ConstraintPosition.TopLeft);
+        currentConstraints[1] = new Constraint((ConstraintType)ObjectTypes[1], ConstraintPosition.TopRight);
+        currentConstraints[2] = new Constraint((ConstraintType)ObjectTypes[2], ConstraintPosition.BottomLeft);
+        currentConstraints[3] = new Constraint((ConstraintType)ObjectTypes[3], ConstraintPosition.BottomRight);
         for (int i = 0; i < 100; i++)
             if (SolutionValid(currentConstraints, i))
                 return;
@@ -185,9 +186,10 @@ public class jamScript : MonoBehaviour {
             {
                 submitAllowed = false;
                 SetSegmentsToNumber(-1);
-                GeneratePuzzle();
                 StartCoroutine(MoveFour(false));
                 yield return new WaitForSeconds(1f);
+                GeneratePuzzle();
+                ObjectReset(currentConstraints);
                 StartCoroutine(MoveFour(true));
                 yield return new WaitForSeconds(1f);
                 currentNumber = 99;
@@ -240,7 +242,6 @@ public class jamScript : MonoBehaviour {
 
     void ObjectReset(Constraint[] cons) //only feed into this function when the puzzle is considered valid
     {
-        StopAllCoroutines();
         for (int j = 0; j < objectWholes.Length; j++)
             objectWholes[j].SetActive(false);
         for (int k = 0; k < 4; k++)
