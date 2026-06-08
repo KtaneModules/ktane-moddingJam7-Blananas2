@@ -98,17 +98,17 @@ public class Constraint
         switch (constraintType)
         {
             case ConstraintType.Compass:
-                int[] releventSegments = GetCompassSegmentIndexes();
-                if (releventSegments == null)
+                int[] compassSegmentIndexes = GetCompassSegmentIndexes();
+                if (compassSegmentIndexes == null)
                     return null;
-                bool[] segmentsLit = new bool[releventSegments.Length];
-                for (int i = 0; i < segmentsLit.Length; i++)
-                    if ((releventSegments[i] <= 6 && jamScript.digitSegmentStates[leftDigit][releventSegments[i]]) || (releventSegments[i] > 6 && jamScript.digitSegmentStates[rightDigit][releventSegments[i] - 7]))
-                        segmentsLit[i] = true;
+                bool[] compassSegmentsLit = new bool[compassSegmentIndexes.Length];
+                for (int i = 0; i < compassSegmentsLit.Length; i++)
+                    if ((compassSegmentIndexes[i] <= 6 && jamScript.digitSegmentStates[leftDigit][compassSegmentIndexes[i]]) || (compassSegmentIndexes[i] > 6 && jamScript.digitSegmentStates[rightDigit][compassSegmentIndexes[i] - 7]))
+                        compassSegmentsLit[i] = true;
                 if (constraintData[0] == 0)
-                    return segmentsLit.All(x => x);
+                    return compassSegmentsLit.All(x => x);
                 else if (constraintData[0] == 1)
-                    return segmentsLit.All(x => !x);
+                    return compassSegmentsLit.All(x => !x);
                 else
                     return null;
             case ConstraintType.Domino:
@@ -148,17 +148,17 @@ public class Constraint
                 else
                     return null;
             case ConstraintType.PCB:
-                int[] releventSegments = GetPCBSegmentIndexes();
-                if (releventSegments == null)
+                int[] pcbSegmentIndexes = GetPCBSegmentIndexes();
+                if (pcbSegmentIndexes == null)
                     return null;
-                bool[] segmentsLit = new bool[releventSegments.Length];
-                for (int i = 0; i < segmentsLit.Length; i++)
-                    if ((releventSegments[i] <= 6 && jamScript.digitSegmentStates[leftDigit][releventSegments[i]]) || (releventSegments[i] > 6 && jamScript.digitSegmentStates[rightDigit][releventSegments[i] - 7]))
-                        segmentsLit[i] = true;
+                bool[] pcbSegmentsLit = new bool[pcbSegmentIndexes.Length];
+                for (int i = 0; i < pcbSegmentsLit.Length; i++)
+                    if ((pcbSegmentIndexes[i] <= 6 && jamScript.digitSegmentStates[leftDigit][pcbSegmentIndexes[i]]) || (pcbSegmentIndexes[i] > 6 && jamScript.digitSegmentStates[rightDigit][pcbSegmentIndexes[i] - 7]))
+                        pcbSegmentsLit[i] = true;
                 if (constraintData[0] == 0)
-                    return segmentsLit.All(x => x) || segmentsLit.All(x => !x);
+                    return pcbSegmentsLit.All(x => x) || pcbSegmentsLit.All(x => !x);
                 else if (constraintData[0] == 1)
-                    return segmentsLit.Count(x => x) == 1;
+                    return pcbSegmentsLit.Count(x => x) == 1;
                 else
                     return null;
             case ConstraintType.Screws:
@@ -182,13 +182,19 @@ public class Constraint
                 else
                     return null;
             case ConstraintType.Sticker:
-                int[][] releventSegmentsForPositions = GetStickerSegmentIndexes();
-                if (releventSegmentsForPositions == null)
+                int[][] stickerSegmentIndexes = GetStickerSegmentIndexes();
+                if (stickerSegmentIndexes == null)
                     return null;
-                bool[] litSegmentsForPositionMakePigpen = new bool[4];
-                for (int i = 0; i < litSegmentsForPositionMakePigpen.Length; i++)
-                    litSegmentsForPositionMakePigpen[i] = releventSegmentsForPositions[i].All(x => x);
-                return litSegmentsForPositionMakePigpen.Any(x => x);
+                for (int i = 0; i < 4; i++)
+                {
+                    bool[] stickerSegmentsLit = new bool[stickerSegmentIndexes[i].Length];
+                    for (int j = 0; j < stickerSegmentsLit.Length; j++)
+                        if ((stickerSegmentIndexes[i][j] <= 6 && jamScript.digitSegmentStates[leftDigit][stickerSegmentIndexes[i][j]]) || (stickerSegmentIndexes[i][j] > 6 && jamScript.digitSegmentStates[rightDigit][stickerSegmentIndexes[i][j] - 7]))
+                            stickerSegmentsLit[j] = true;
+                    if (stickerSegmentsLit.All(x => x))
+                        return true;
+                }
+                return false;
             case ConstraintType.Thermo:
                 if (constraintData.Length != 2 || constraintData[0] < 0 || constraintData[0] > 2 || constraintData[1] < 0 || constraintData[1] > 6)
                     return null;
@@ -261,14 +267,141 @@ public class Constraint
         }
     }
 
+    // Gets the reading order indexes of each relevent segment for the PCB's trace and position
+    // Indexes greater than 6 refer to the segments of the right digit
+    // Returns null if the constraint type, data or position is an unexpected value
     int[] GetPCBSegmentIndexes()
     {
-        
+        if (constraintType != ConstraintType.PCB || constraintData.Length != 2)
+            return null;
+        switch (constraintPosition)
+        {
+            case ConstraintPosition.TopLeft:
+                if (constraintData[1] == 0)
+                    return new int[] { 0, 3 };
+                else if (constraintData[1] == 1)
+                    return new int[] { 1, 2 };
+                else if (constraintData[1] == 2)
+                    return new int[] { 2, 3 };
+                else if (constraintData[1] == 3)
+                    return new int[] { 1, 3 };
+                else if (constraintData[1] == 4)
+                    return new int[] { 0, 2 };
+                else if (constraintData[1] == 5)
+                    return new int[] { 0, 1 };
+                else if (constraintData[1] == 6)
+                    return new int[] { 0, 2, 3 };
+                else if (constraintData[1] == 7)
+                    return new int[] { 0, 1, 3 };
+                else if (constraintData[1] == 8)
+                    return new int[] { 1, 2, 3 };
+                else if (constraintData[1] == 9)
+                    return new int[] { 0, 1, 2 };
+                else if (constraintData[1] == 10)
+                    return new int[] { 0, 1, 2, 3 };
+                else
+                    return null;
+            case ConstraintPosition.TopRight:
+                if (constraintData[1] == 0)
+                    return new int[] { 7, 10 };
+                else if (constraintData[1] == 1)
+                    return new int[] { 8, 9 };
+                else if (constraintData[1] == 2)
+                    return new int[] { 9, 10 };
+                else if (constraintData[1] == 3)
+                    return new int[] { 8, 10 };
+                else if (constraintData[1] == 4)
+                    return new int[] { 7, 9 };
+                else if (constraintData[1] == 5)
+                    return new int[] { 7, 8 };
+                else if (constraintData[1] == 6)
+                    return new int[] { 7, 9, 10 };
+                else if (constraintData[1] == 7)
+                    return new int[] { 7, 8, 10 };
+                else if (constraintData[1] == 8)
+                    return new int[] { 8, 9, 10 };
+                else if (constraintData[1] == 9)
+                    return new int[] { 7, 8, 9 };
+                else if (constraintData[1] == 10)
+                    return new int[] { 7, 8, 9, 10 };
+                else
+                    return null;
+            case ConstraintPosition.BottomLeft:
+                if (constraintData[1] == 0)
+                    return new int[] { 3, 6 };
+                else if (constraintData[1] == 1)
+                    return new int[] { 4, 5 };
+                else if (constraintData[1] == 2)
+                    return new int[] { 5, 6 };
+                else if (constraintData[1] == 3)
+                    return new int[] { 4, 6 };
+                else if (constraintData[1] == 4)
+                    return new int[] { 3, 5 };
+                else if (constraintData[1] == 5)
+                    return new int[] { 3, 4 };
+                else if (constraintData[1] == 6)
+                    return new int[] { 3, 5, 6 };
+                else if (constraintData[1] == 7)
+                    return new int[] { 3, 4, 6 };
+                else if (constraintData[1] == 8)
+                    return new int[] { 4, 5, 6 };
+                else if (constraintData[1] == 9)
+                    return new int[] { 3, 4, 5 };
+                else if (constraintData[1] == 10)
+                    return new int[] { 3, 4, 5, 6 };
+                else
+                    return null;
+            case ConstraintPosition.BottomRight:
+                if (constraintData[1] == 0)
+                    return new int[] { 10, 13 };
+                else if (constraintData[1] == 1)
+                    return new int[] { 11, 12 };
+                else if (constraintData[1] == 2)
+                    return new int[] { 12, 13 };
+                else if (constraintData[1] == 3)
+                    return new int[] { 11, 13 };
+                else if (constraintData[1] == 4)
+                    return new int[] { 10, 12 };
+                else if (constraintData[1] == 5)
+                    return new int[] { 10, 11 };
+                else if (constraintData[1] == 6)
+                    return new int[] { 10, 12, 13 };
+                else if (constraintData[1] == 7)
+                    return new int[] { 10, 11, 13 };
+                else if (constraintData[1] == 8)
+                    return new int[] { 11, 12, 13 };
+                else if (constraintData[1] == 9)
+                    return new int[] { 10, 11, 12 };
+                else if (constraintData[1] == 10)
+                    return new int[] { 10, 11, 12, 13 };
+                else
+                    return null;
+            default:
+                return null;
+        }
     }
 
+    // Gets the reading order indexes of each relevent segment for the Sticker's letter for each position
+    // Indexes greater than 6 refer to the segments of the right digit
+    // Returns null if the constraint type or data is an unexpected value
     int[][] GetStickerSegmentIndexes()
     {
-        
+        if (constraintType != ConstraintType.Sticker || constraintData.Length != 1)
+            return null;
+        if (constraintData[0] == 0)
+            return new int[][] { new int[] { 1, 2, 3 }, new int[] { 8, 9, 10 }, new int[] { 4, 5, 6 }, new int[] { 11, 12, 13 } };
+        else if (constraintData[0] == 1)
+            return new int[][] { new int[] { 0, 2, 3 }, new int[] { 7, 9, 10 }, new int[] { 3, 5, 6 }, new int[] { 10, 12, 13 } };
+        else if (constraintData[0] == 2)
+            return new int[][] { new int[] { 0, 1, 2, 3 }, new int[] { 7, 8, 9, 10 }, new int[] { 3, 4, 5, 6 }, new int[] { 10, 11, 12, 13 } };
+        else if (constraintData[0] == 3)
+            return new int[][] { new int[] { 0, 1, 3 }, new int[] { 7, 8, 10 }, new int[] { 3, 4, 6 }, new int[] { 10, 11, 13 } };
+        else if (constraintData[0] == 4)
+            return new int[][] { new int[] { 0, 2 }, new int[] { 7, 9 }, new int[] { 3, 5 }, new int[] { 10, 12 } };
+        else if (constraintData[0] == 5)
+            return new int[][] { new int[] { 0, 1, 2 }, new int[] { 7, 8, 9 }, new int[] { 3, 4, 5 }, new int[] { 10, 11, 12 } };
+        else
+            return null;
     }
 
     // Returns true if the provided number is prime
@@ -290,6 +423,50 @@ public class Constraint
     // Overrides the ToString method to return a custom string for the constraint
     public override string ToString()
     {
-        return string.Format("The {0} constraint is a {1}", constraintPosition, constraintType);
+        string constraintDataString = "";
+        switch (constraintType)
+        {
+            case ConstraintType.Compass:
+                string[] compassColors = { "red", "black" };
+                string[] compassDirections = { "north", "east", "south", "west" };
+                constraintDataString = "with a " + compassColors[constraintData[0]] + " needle pointing " + compassDirections[constraintData[1]];
+                break;
+            case ConstraintType.Domino:
+                string[] dominoColors = { "white", "black" };
+                constraintDataString = "with " + dominoColors[constraintData[0]] + " pips that reads " + constraintData[1] + "|" + constraintData[2];
+                break;
+            case ConstraintType.Gear:
+                string[] gearDirections = { "spinning clockwise", "spinning counter-clockwise", "that is stationary" };
+                constraintDataString = gearDirections[constraintData[0]];
+                break;
+            case ConstraintType.Matrix:
+                constraintDataString = "with " + constraintData[0] + " lit squares";
+                break;
+            case ConstraintType.PCB:
+                string[] pcbAngles = { "square", "45 degrees" };
+                string[] pcbTraces = { "│", "─", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼" };
+                constraintDataString = "with a chip that is " + pcbAngles[constraintData[0]] + " relative to the board and a " + pcbTraces[constraintData[1]] + " trace";
+                break;
+            case ConstraintType.Screws:
+                string[] screwTypes = { "Phillips", "Torx" };
+                constraintDataString = "with " + constraintData[1] + " total of type " + screwTypes[constraintData[0]];
+                break;
+            case ConstraintType.StampMarkings:
+                string[] markingsPresent = { "CLASSIFIED", "DECLASSIFIED", "CLASSIFIED & DECLASSIFIED" };
+                constraintDataString = "with markings " + markingsPresent[constraintData[0]];
+                break;
+            case ConstraintType.Sticker:
+                string[] stickerLetters = { "B", "D", "E", "F", "G", "H" };
+                constraintDataString = "of the letter " + stickerLetters[constraintData[0]];
+                break;
+            case ConstraintType.Thermo:
+                string[] thermoLetters = { "A", "B", "C", "D", "E", "F", "G" };
+                constraintDataString = "that reads " + constraintData[0] + "°" + thermoLetters[constraintData[1]];
+                break;
+            case ConstraintType.Vectorscope:
+                constraintDataString = "with a line going through box " + constraintData[0];
+                break;
+        }
+        return string.Format("The {0} constraint is a {1} {2}", constraintPosition, constraintType, constraintDataString);
     }
 }
