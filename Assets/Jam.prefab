@@ -3391,7 +3391,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6eab17ef7f2fcd94bae54a65cccf66dc, type: 2}
+  - {fileID: 2100000, guid: cbebdd8a9ce19564ab7154979c16dd0d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4003,7 +4003,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 57bd552fee3f64243a182344db452fef, type: 2}
+  - {fileID: 2100000, guid: 41d4896bc66a3e04aabc7841ce1fa798, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4513,7 +4513,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 57bd552fee3f64243a182344db452fef, type: 2}
+  - {fileID: 2100000, guid: 41d4896bc66a3e04aabc7841ce1fa798, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4887,7 +4887,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1050802310805548}
-  m_Mesh: {fileID: 4300000, guid: 51b48c329b073074fb3a1c9078f2c31b, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 987ecd83b9fcf4d4daedc2fa4523b4fe, type: 3}
 --- !u!33 &33209329562577246
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -4999,7 +4999,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1312414611713656}
-  m_Mesh: {fileID: 4300000, guid: 51b48c329b073074fb3a1c9078f2c31b, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 987ecd83b9fcf4d4daedc2fa4523b4fe, type: 3}
 --- !u!33 &33589207417068178
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -5174,7 +5174,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1273990519837602}
-  m_Mesh: {fileID: 4300000, guid: 51b48c329b073074fb3a1c9078f2c31b, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 987ecd83b9fcf4d4daedc2fa4523b4fe, type: 3}
 --- !u!33 &33854026383891196
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -5195,7 +5195,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1745737710298748}
-  m_Mesh: {fileID: 4300000, guid: 51b48c329b073074fb3a1c9078f2c31b, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 987ecd83b9fcf4d4daedc2fa4523b4fe, type: 3}
 --- !u!33 &33891630843675106
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -5209,7 +5209,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1327726430996224}
-  m_Mesh: {fileID: 4300000, guid: 51b48c329b073074fb3a1c9078f2c31b, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 987ecd83b9fcf4d4daedc2fa4523b4fe, type: 3}
 --- !u!33 &33904081856738974
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -5353,7 +5353,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: d2a0768253ce3d74d858d5794c3734fe, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 3372220415
 --- !u!102 &102639207889747814
 TextMesh:
   serializedVersion: 3
@@ -5570,7 +5570,7 @@ MonoBehaviour:
   - {fileID: 1960876411280540}
   compassNeedle: {fileID: 23827665503576134}
   compassMaterials:
-  - {fileID: 2100000, guid: 57bd552fee3f64243a182344db452fef, type: 2}
+  - {fileID: 2100000, guid: 41d4896bc66a3e04aabc7841ce1fa798, type: 2}
   - {fileID: 2100000, guid: a0c3850ef5a1cbf4fb50fef0471860fa, type: 2}
   dominoPlate: {fileID: 23420956790525584}
   dominoMaterials:

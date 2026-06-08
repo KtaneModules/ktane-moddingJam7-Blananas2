@@ -369,13 +369,20 @@ public class jamScript : MonoBehaviour {
         
         float wfs = (count == 0 || count == 9) ? 100f : 0.75f;
 
+        SetAllLights(lights);
+
         while (!submitAllowed) { yield return new WaitForSeconds(0.25f); } //wait until submission period comes
         while (submitAllowed)
         {
             lights.Shuffle();
-            for (int s = 0; s < 9; s++)
-                matrixSquares[s].material = matrixStateMaterials[lights[s] ? 1 : 0];
+            SetAllLights(lights);
             yield return new WaitForSeconds(wfs);
         }
+    }
+
+    void SetAllLights(List<bool> l)
+    {
+        for (int s = 0; s < 9; s++)
+            matrixSquares[s].material = matrixStateMaterials[l[s] ? 1 : 0];
     }
 }
