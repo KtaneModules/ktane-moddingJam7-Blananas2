@@ -353,7 +353,8 @@ public class jamScript : MonoBehaviour {
 
     IEnumerator GearSpin(float dir)
     {
-        while (true)
+        while (!submitAllowed) { yield return new WaitForSeconds(0.25f); } //wait until the submission period comes
+        while (submitAllowed)
         {
             objectWholes[2].transform.Rotate(new Vector3(0, dir, 0));
             yield return null;
@@ -368,7 +369,8 @@ public class jamScript : MonoBehaviour {
         
         float wfs = (count == 0 || count == 9) ? 100f : 0.75f;
 
-        while (true)
+        while (!submitAllowed) { yield return new WaitForSeconds(0.25f); } //wait until submission period comes
+        while (submitAllowed)
         {
             lights.Shuffle();
             for (int s = 0; s < 9; s++)
