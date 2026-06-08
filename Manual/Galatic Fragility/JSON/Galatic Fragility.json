@@ -1,2 +1,18 @@
-Replace this with a JSON generated at ktane.timwi.de (see Tools -> Create new module)
-Don't forget to add Tags to the description that describe what your module LOOKS LIKE to be able to find it in the list from the defuser's description.
+{
+  "Contributors": { "Developer": [
+    "Blananas2",
+    "eXish"
+  ] },
+  "DefuserDifficulty": "Medium",
+  "Description": "Stop the timer at a valid time by using the objects given in the previous iteration. Tags: purple-background, orange-timer, seven-segment-display, one-button",
+  "ExpertDifficulty": "Medium",
+  "ModuleID": "galaticFragility",
+  "Name": "Galatic Fragility",
+  "Origin": "Mods",
+  "Published": "2026-06-08",
+  "SortKey": "GALATIC FRAGILITY",
+  "SourceUrl": "https://github.com/Blananas2/ktane-moddingJam7",
+  "SteamID": "{STEAM ID}",
+  "Symbol": "Gfg",
+  "Type": "Regular"
+}
