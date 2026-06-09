@@ -102,7 +102,7 @@ public class jamScript : MonoBehaviour {
         currentConstraints[2] = new Constraint((ConstraintType)ObjectTypes[2], ConstraintPosition.BottomLeft);
         currentConstraints[3] = new Constraint((ConstraintType)ObjectTypes[3], ConstraintPosition.BottomRight);
         for (int i = 0; i < 100; i++)
-            if (SolutionValid(currentConstraints, i))
+            if (SolutionValid(currentConstraints, i, false))
                 return;
         goto remakeConstraints;
     }
@@ -125,7 +125,7 @@ public class jamScript : MonoBehaviour {
         for (int l = 0; l < 4; l++)
             Debug.LogFormat("[Galatic Fragility #{0}] {1}", moduleId, previousLogging[l]);
 
-        if (SolutionValid(previousConstraints, currentNumber))
+        if (SolutionValid(previousConstraints, currentNumber, true))
         {
             StopAllCoroutines();
             SetSegmentsToNumber(-1);
@@ -137,11 +137,22 @@ public class jamScript : MonoBehaviour {
         }
     }
 
-    bool SolutionValid(Constraint[] constraints, int number)
+    bool SolutionValid(Constraint[] constraints, int number, bool submission)
     {
         for (int u = 0; u < 4; u++)
-            if (constraints[u].NumberPassesConstraint(number) != true)
+        {
+            bool? passesConstraint = constraints[u].NumberPassesConstraint(number);
+            if (passesConstraint != true)
+            {
+                if (passesConstraint == null)
+                {
+                    Debug.LogFormat("[Galatic Fragility #{0}] Error: Received an unexpected value when checking solution validity during {1}.", moduleId, submission ? "submission" : "object generation");
+                    Debug.LogFormat("[Galatic Fragility #{0}] The error occurred when checking the number {1} against this object:", moduleId, number);
+                    Debug.LogFormat("[Galatic Fragility #{0}] \"{1}\"", moduleId, constraints[u].ToString());
+                }
                 return false;
+            }
+        }
         
         return true;
     }

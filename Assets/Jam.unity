@@ -152,11 +152,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114848120511536268, guid: 8814ea52310d2614a9feda02ec355ae4,
-        type: 2}
-      propertyPath: TwitchPlaysActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8814ea52310d2614a9feda02ec355ae4, type: 2}
   m_IsPrefabParent: 0
@@ -345,6 +340,31 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 23320110949216578, guid: 9f98a070556224c4fafa86880a7ddf0d,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 57bd552fee3f64243a182344db452fef, type: 2}
+    - target: {fileID: 23098111205999080, guid: 9f98a070556224c4fafa86880a7ddf0d,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 57bd552fee3f64243a182344db452fef, type: 2}
+    - target: {fileID: 23109455745782760, guid: 9f98a070556224c4fafa86880a7ddf0d,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 57bd552fee3f64243a182344db452fef, type: 2}
+    - target: {fileID: 23076247669019330, guid: 9f98a070556224c4fafa86880a7ddf0d,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 57bd552fee3f64243a182344db452fef, type: 2}
+    - target: {fileID: 23785977068244228, guid: 9f98a070556224c4fafa86880a7ddf0d,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 57bd552fee3f64243a182344db452fef, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9f98a070556224c4fafa86880a7ddf0d, type: 2}
   m_IsPrefabParent: 0

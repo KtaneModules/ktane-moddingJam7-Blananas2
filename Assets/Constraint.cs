@@ -90,7 +90,7 @@ public class Constraint
     }
 
     // Evaluates if a number passes the constraint or not
-    // Returns null if the constraint type, data or relevent segment indexes are an unexpected value
+    // Returns null if the constraint type, data or relevant segment indexes are an unexpected value
     public bool? NumberPassesConstraint(int number)
     {
         int leftDigit = number / 10;
@@ -209,7 +209,7 @@ public class Constraint
         }
     }
 
-    // Gets the reading order indexes of each relevent segment for the compass's direction and position
+    // Gets the reading order indexes of each relevant segment for the compass's direction and position
     // Indexes greater than 6 refer to the segments of the right digit
     // Returns null if the constraint type, data or position is an unexpected value
     int[] GetCompassSegmentIndexes()
@@ -267,7 +267,7 @@ public class Constraint
         }
     }
 
-    // Gets the reading order indexes of each relevent segment for the PCB's trace and position
+    // Gets the reading order indexes of each relevant segment for the PCB's trace and position
     // Indexes greater than 6 refer to the segments of the right digit
     // Returns null if the constraint type, data or position is an unexpected value
     int[] GetPCBSegmentIndexes()
@@ -381,7 +381,7 @@ public class Constraint
         }
     }
 
-    // Gets the reading order indexes of each relevent segment for the Sticker's letter for each position
+    // Gets the reading order indexes of each relevant segment for the Sticker's letter for each position
     // Indexes greater than 6 refer to the segments of the right digit
     // Returns null if the constraint type or data is an unexpected value
     int[][] GetStickerSegmentIndexes()
