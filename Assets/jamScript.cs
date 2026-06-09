@@ -127,6 +127,7 @@ public class jamScript : MonoBehaviour {
 
         if (SolutionValid(previousConstraints, currentNumber, true))
         {
+            Audio.PlaySoundAtTransform("solve", transform);
             StopAllCoroutines();
             SetSegmentsToNumber(-1);
             StartCoroutine(SolveAnim());
@@ -159,7 +160,7 @@ public class jamScript : MonoBehaviour {
 
     IEnumerator ModuleStart()
     {
-        StartCoroutine(MoveFour(true));
+        StartCoroutine(MoveFour(true, 1f));
         SetSegmentsToNumber(-1);
         yield return new WaitForSeconds(0.25f);
         StartCoroutine(Timer());
@@ -197,24 +198,25 @@ public class jamScript : MonoBehaviour {
             {
                 submitAllowed = false;
                 SetSegmentsToNumber(-1);
-                StartCoroutine(MoveFour(false));
+                StartCoroutine(MoveFour(false, 1f));
                 yield return new WaitForSeconds(1f);
                 GeneratePuzzle();
                 ObjectReset(currentConstraints);
-                StartCoroutine(MoveFour(true));
+                StartCoroutine(MoveFour(true, 1f));
                 yield return new WaitForSeconds(1f);
                 currentNumber = 99;
+                submitAllowed = true;
             }
             SetSegmentsToNumber(currentNumber);
         }
     }
     
-    IEnumerator MoveFour(bool b) {
+    IEnumerator MoveFour(bool b, float t) {
         int[] Order = Enumerable.Range(0, 4).ToArray().Shuffle();
         for (int q = 0; q < 4; q++)
         {
             StartCoroutine(QuadMove(b, currentConstraints[Order[q]]));
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(t / 4);
         }
     }
 
@@ -261,8 +263,8 @@ public class jamScript : MonoBehaviour {
 
     IEnumerator SolveAnim()
     {
-        StartCoroutine(MoveFour(false));
-        for (int g = 0; g < 10; g++)
+        StartCoroutine(MoveFour(false, 1.92f));
+        for (int g = 0; g < 19; g++)
         {
             for (int i = 0; i < 7; i++)
             {
@@ -271,6 +273,7 @@ public class jamScript : MonoBehaviour {
             }
             yield return new WaitForSeconds(0.1f);   
         }
+        yield return new WaitForSeconds(0.02f);
         for (int i = 0; i < 7; i++)
         {
             leftDisplaySegments[i].material = segmentStateMaterials[(i == 2 || i == 3) ? 0 : 1];

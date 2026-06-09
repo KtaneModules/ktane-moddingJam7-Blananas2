@@ -14,8 +14,16 @@ MonoBehaviour:
   id: galaticFragility
   title: Galatic Fragility
   author: Blananas2, eXish
-  description: 
+  description: 'Houston, we may have a number.
+
+
+    Module by eXish and Blananas2
+
+
+    Module ID: galaticFragility
+
+    The manual can be found here: https://ktane.timwi.de/HTML/Galatic%20Fragility.html'
   version: 
   outputFolder: build
   debugBuild: 1
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 2800000, guid: c9fc4d904a61c6f42bc76ed35582d43e, type: 3}
